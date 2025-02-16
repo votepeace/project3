@@ -1,0 +1,9 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- nginx-gateway-fabric.yaml 
+- sealed-secrets.yaml
+- istiod.yaml
+- istio_ingress.yaml
+- istio_base.yaml
+#- namespace_istio.yaml

@@ -1,0 +1,41 @@
+# apiVersion: helm.toolkit.fluxcd.io/v2beta1
+# kind: HelmRelease
+# metadata:
+#   name: istio-ingressgateway
+#   namespace: istio-system
+# spec:
+#   interval: 1m
+#   chart:
+#     spec:
+#       chart: gateway
+#       version: ">=1.24.3" #used to be 1.16.0 but Peace changed to 1.24.3
+#       sourceRef:
+#         kind: HelmRepository
+#         name: istio
+#         namespace: istio-system
+#   values:
+#     labels:
+#       istio: ingressgateway
+#     service:
+#       type: LoadBalancer
+
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: istio-ingressgateway
+  namespace: istio-system
+spec:
+    interval: 1m
+    releaseName: istio-ingressgateway
+    chart:
+      spec:
+        chart: gateway
+        sourceRef: 
+          kind: HelmRepository
+          name: istio
+          namespace: istio-system
+    values:
+      name: istio-ingressgateway
+      labels:
+        app: istio-ingressgateway
+        istio: ingressgateway
