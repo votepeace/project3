@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: login
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: login
+  template:
+    metadata:
+      labels:
+        app: login
+    spec:
+      containers:
+      - name: login
+        image: acrrca123.azurecr.io/login:latest
+        ports:
+        - containerPort: 8080
+        env:
+        - name: PRIVATE_KEY
+          valueFrom:
+            secretKeyRef:
+              name: loginkeys
+              key: private_key.pem
+        - name: PUBLIC_KEY
+          valueFrom:
+            secretKeyRef:
+              name: loginkeys
+              key: public-key.pem
+        #- name: JWT_ISSUER #peace added to fix JWT issuer config issue
+         # value: "llmlogin" #peace added to fix JWT issuer config issue
